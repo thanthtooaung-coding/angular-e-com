@@ -21,12 +21,15 @@ export class ProductListComponent implements OnInit {
   }
 
   loadProducts(): void {
-    const products = this.productService.getProducts();
-    this.dataSource = new MatTableDataSource(products);
+    this.productService.getProducts().subscribe(products => {
+      this.dataSource.data = products;
+    });
   }
 
   onDelete(id: number): void {
-    this.productService.deleteProduct(id);
-    this.loadProducts();
+    this.productService.deleteProduct(id).subscribe(() => {
+      console.log(`Deleted product with id: ${id}`);
+      this.loadProducts();
+    });
   }
 }

@@ -8,11 +8,14 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { HttpClientModule } from '@angular/common/http';
+import { ProductFormComponent } from './product-form/product-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductListComponent
+    ProductListComponent,
+    ProductFormComponent
   ],
   imports: [
     BrowserModule,
@@ -20,7 +23,8 @@ import { MatIconModule } from '@angular/material/icon';
     BrowserAnimationsModule,
     MatTableModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
