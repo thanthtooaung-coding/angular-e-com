@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../product';
 import { ProductService } from '../product.service';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-product-list',
@@ -9,7 +10,9 @@ import { ProductService } from '../product.service';
 })
 export class ProductListComponent implements OnInit {
 
-  products: Product[] = [];
+  displayedColumns: string[] = ['image', 'name', 'price', 'actions'];
+
+  dataSource = new MatTableDataSource<Product>();
 
   constructor(private productService: ProductService) {}
 
@@ -18,7 +21,8 @@ export class ProductListComponent implements OnInit {
   }
 
   loadProducts(): void {
-    this.products = this.productService.getProducts();
+    const products = this.productService.getProducts();
+    this.dataSource = new MatTableDataSource(products);
   }
 
   onDelete(id: number): void {

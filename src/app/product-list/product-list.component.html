@@ -1,15 +1,40 @@
 <h2>Product List</h2>
 
-<p *ngIf="products.length === 0">No products available.</p>
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
 
-<div *ngFor="let product of products" class="product-item">
-    <img [src]="product.imageUrl" [alt]="product.name">
-    <div class="product-details">
-        <h3 [ngClass]="{ 'expensive': product.price > 100 }">{{ product.name }}</h3>
-        <p [ngStyle]="{ 'color': product.price > 100 ? 'darkred' : 'green' }">Price: {{ product.price | currency }}</p>
-    </div>
-    <div class="product-actions">
-        <button>Edit</button>
-        <button (click)="onDelete(product.id)">Delete</button>
-    </div>
-</div>  
+        <ng-container matColumnDef="image">
+            <th mat-header-cell *matHeaderCellDef> Image </th>
+            <td mat-cell *matCellDef="let product" class="product-image-cell">
+                <img [src]="product.imageUrl" [alt]="product.name" class="product-image">
+            </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Product Name </th>
+            <td mat-cell *matCellDef="let product"> {{product.name}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef> Price </th>
+            <td mat-cell *matCellDef="let product"> {{product.price | currency}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> Actions </th>
+            <td mat-cell *matCellDef="let product">
+            <button mat-icon-button color="primary" aria-label="Edit product">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="onDelete(product.id)" aria-label="Delete product">
+                <mat-icon>delete</mat-icon>
+            </button>
+            </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+  
+<p *ngIf="dataSource.data.length === 0" class="empty-message">No products available.</p>
