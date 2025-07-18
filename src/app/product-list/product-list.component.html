@@ -1,0 +1,15 @@
+<h2>Product List</h2>
+
+<p *ngIf="products.length === 0">No products available.</p>
+
+<div *ngFor="let product of products" class="product-item">
+    <img [src]="product.imageUrl" [alt]="product.name">
+    <div class="product-details">
+        <h3 [ngClass]="{ 'expensive': product.price > 100 }">{{ product.name }}</h3>
+        <p [ngStyle]="{ 'color': product.price > 100 ? 'darkred' : 'green' }">Price: {{ product.price | currency }}</p>
+    </div>
+    <div class="product-actions">
+        <button>Edit</button>
+        <button (click)="onDelete(product.id)">Delete</button>
+    </div>
+</div>  
