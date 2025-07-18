@@ -1,1 +1,26 @@
-<p>product-form works!</p>
+<h1 mat-dialog-title>{{ isEditMode ? 'Edit Product' : 'Add New Product' }}</h1>
+
+<div mat-dialog-content>
+    <p>Please fill out the product details below.</p>
+    <mat-form-field appearance="fill">
+        <mat-label>Product Name</mat-label>
+        <input matInput [(ngModel)]="productData.name" required>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Price</mat-label>
+        <input matInput type="number" [(ngModel)]="productData.price" required>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Image URL</mat-label>
+        <input matInput [(ngModel)]="productData.imageUrl" required>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea matInput [(ngModel)]="productData.description"></textarea>
+    </mat-form-field>
+</div>
+
+<div mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="onSave()" [disabled]="!productData.name || !productData.price">Save</button>
+</div>
